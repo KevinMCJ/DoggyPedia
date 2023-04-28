@@ -10,14 +10,14 @@ const getApiDogs = async () => {
 
   const filteredData = data.map(
     ({ id, name, weight, height, life_span, temperament, image }) => {
-      let finalWeigth = weight.metric;
+      let finalWeight = weight.metric;
       let finalHeight = height.metric;
       let finalTemperament = temperament;
-      let lifeSpanArr = life_span.match(/\d+/g).map((n) => parseInt(n)); // *  RegEx devuelve array de enteros y despues parseo los valores.
+      let lifeSpanArr = life_span.match(/\d+/g).map((n) => parseInt(n)); // *  RegEx devuelve array de enteros y después parseo los valores.
 
-      // * Solo realiza la transformacion correspondiente ej [10,15] si es posible (Algunos vienen NaN).
+      // * Solo realiza la transformación correspondiente ej [10,15] si es posible (Algunos vienen NaN).
       if (/\d+/.test(weight.metric)) {
-        finalWeigth = finalWeigth.split(" - ").map((n) => parseInt(n));
+        finalWeight = finalWeight.split(" - ").map((n) => parseInt(n));
       }
       if (/\d+(\.\d+)?/.test(height.metric)) {
         finalHeight = finalHeight.split(" - ").map((f) => parseFloat(f));
@@ -25,11 +25,11 @@ const getApiDogs = async () => {
 
       if (temperament) finalTemperament = temperament.split(", ");
 
-      // * Hay 4 razas sin temperaments. En este caso no se envia temperament ya que = undefined.
+      // * Hay 4 razas sin temperaments. En este caso no se envía temperament ya que = undefined.
       return {
         id,
         name,
-        weight: finalWeigth,
+        weight: finalWeight,
         height: finalHeight,
         life_span: lifeSpanArr,
         temperament: finalTemperament,
@@ -41,7 +41,29 @@ const getApiDogs = async () => {
   return filteredData;
 };
 
-const getDogsDB = async () => await Dog.findAll();
+const getDogsDB = async () => {
+  const dogsDB = await Dog.findAll({
+    include: {
+      model: Temperament,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+
+  const cleanDogs = dogsDB.map((dog) => ({
+    id: dog.id,
+    name: dog.name,
+    height: dog.height,
+    weight: dog.weight,
+    life_span: dog.life_span,
+    image: dog.image,
+    temperament: dog.Temperaments.map((temp) => temp.name),
+  }));
+
+  return cleanDogs;
+};
 
 const getAllDogs = async () => {
   const dogsApi = await getApiDogs();
@@ -53,15 +75,15 @@ const getAllDogs = async () => {
 /******************************************************/
 // * FUNCIONA PARA UUID Y ID
 const getDogById = async (id) => {
-  if(!id) throw Error("Invalid id");
+  if (!id) throw Error("Invalid id");
 
   //Si es un numero [No es de tipo UUID]
-  if(Number(id)) id = parseInt(id);
+  if (Number(id)) id = parseInt(id);
 
   const allDogs = await getAllDogs();
-  const dog = allDogs.filter(dog => dog.id === id);
+  const dog = allDogs.filter((dog) => dog.id === id);
 
-  if (!dog) throw Error("No se encontro una raza con ese ID");
+  if (!dog) throw Error("No se encontró una raza con ese ID");
 
   return dog;
 };
@@ -70,7 +92,7 @@ const getDogById = async (id) => {
 const getDogsByName = async (name) => {
   if (!name || typeof name !== "string") throw Error("Nombre invalido");
 
-  name = name.trim(); // * Elimina cualquier espacio en blanco adicional antes o despues del string.
+  name = name.trim(); // * Elimina cualquier espacio en blanco adicional antes o después del string.
 
   const allDogs = await getAllDogs();
   const dogs = allDogs.filter((dog) => {
@@ -97,8 +119,12 @@ const createDog = async ({
     throw Error("Faltan datos requeridos");
   }
 
-  if(!Array.isArray(height) || !Array.isArray(weight) 
-  || height.length !== 2 || weight.length !== 2 ){
+  if (
+    !Array.isArray(height) ||
+    !Array.isArray(weight) ||
+    height.length !== 2 ||
+    weight.length !== 2
+  ) {
     throw Error("Invalid height or weight format");
   }
 
@@ -110,11 +136,14 @@ const createDog = async ({
     image,
   });
 
-  const temperamentsToAdd = await Temperament.findAll({
-    where: { name: temperaments },
-  });
+  if (temperaments) {
+    // * Puede no tener temperamentos.
+    const temperamentsToAdd = await Temperament.findAll({
+      where: { name: temperaments },
+    });
 
-  await newDog.addTemperament(temperamentsToAdd);
+    await newDog.addTemperament(temperamentsToAdd);
+  }
 
   return newDog;
 };

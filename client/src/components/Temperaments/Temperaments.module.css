@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.container p{
+    padding: 0.1rem 0.4rem;
+    border-radius: 40px;
+    border: 1px solid black;
+    font-size: 0.7rem;
+    margin: 0 0 ;
+}
