@@ -1,20 +1,30 @@
 import style from "./Card.module.css";
 import Temperaments from "../Temperaments/Temperaments";
+import { Link } from "react-router-dom";
 
-const Card = (props) => {
+const Card = ({breed}) => {
+  const { id, name, image, weight, temperament } = breed;
+  let formatWeightString = "???";
+
+  // ? Entra => weight: [min, max] o weight: [max]. Quedaría => 10 - 20 O ??? - 10
+  if(weight){
+    formatWeightString = weight.length === 1 ? `??? - ${weight[0]}` : `${weight[0]} - ${weight[1]}`;
+  }
+
   return (
-    <div className={style.card}>
-      <h2>{props.name}</h2>
-      <p>Life-Span: {props.life_span} years</p>
-      <img src={props.image} alt={props.name} />
-
-      {Array.isArray(props.temperament) && props.temperament.length ? (
-        <Temperaments className={style.temperaments} temperament={props.temperament}/>
-      ) : (
-        <p>Weight: {props.weight} kilograms</p>
-      )}
-
-    </div>
+    <Link to={`/detail/${id}`}>
+      <div className={style.card}>
+        <h2>{name}</h2>
+        <img src={image} alt={name} />
+        {temperament && (
+          <Temperaments
+            className={style.temperaments}
+            temperament={temperament}
+          />
+        )}
+        <p>Weight: {formatWeightString}</p> 
+      </div>
+    </Link>
   );
 };
 

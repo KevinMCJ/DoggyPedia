@@ -1,0 +1,26 @@
+.container {
+  margin-top: 2rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page_number {
+  font-size: 1rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid black;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+svg {
+  border: 1px solid black;
+  border-radius: 999px;
+  padding: 0.3rem;
+  margin: 1rem;
+}

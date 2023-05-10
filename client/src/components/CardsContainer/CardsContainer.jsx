@@ -1,33 +1,17 @@
 import Card from "../Card/Card";
 import style from "./CardsContainer.module.css";
-import { useSelector } from "react-redux";
 
-const CardContainer = () => {
-  const allBreeds = useSelector((state) => state.allBreeds);
-
+const CardContainer = ({ breeds }) => {
   return (
-    <>
-      <div className={style.container}>
-        {allBreeds.length ? (
-          allBreeds.map((breed) => {
-            return (
-              <Card
-                key={breed.id}
-                id={breed.id}
-                name={breed.name}
-                weight={breed.weight}
-                height={breed.height}
-                life_span={breed.life_span}
-                temperament={breed.temperament}
-                image={breed.image}
-              />
-            );
-          })
-        ) : (
-          <h3>Sin Coincidencias...</h3>
-        )}
-      </div>
-    </>
+    <div className={style.container}>
+      {breeds.length ? (
+        breeds.map((breed) => {
+          return <Card key={breed.id} breed={breed} />;
+        })
+      ) : (
+        <h3>Sin Coincidencias...</h3>
+      )}
+    </div>
   );
 };
 

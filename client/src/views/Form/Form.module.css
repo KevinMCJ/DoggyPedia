@@ -1,0 +1,102 @@
+.form {
+  width: 50%;
+  margin: 0 auto;
+  border: 2px solid brown;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  width: max-content;
+  margin: 0 auto;
+  padding: 1rem 1rem;
+  gap: 1rem;
+}
+
+.inputContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+}
+
+.inputContainer label{
+  grid-column: 1/-1;
+  margin: 1rem 1rem;
+  text-align: center;
+}
+
+.inputContainer input{
+  padding: 0.5rem 1rem;
+}
+
+.inputName{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+}
+
+.imageBox{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.imageBox input{
+  width: auto;
+  padding: 0.5rem 1rem;
+}
+
+.inputImage{
+  width: 100%;
+}
+
+
+/***********************************************/
+.temperamentBox{
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+  margin: 1.6rem 0;
+}
+
+.select {
+  width: 180px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.tempList {
+  max-width: 100px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  list-style: none;
+  gap: 0.2rem;
+  padding: 0;
+}
+
+.tempList li {
+  border: 2px solid brown;
+  font-size: 0.6rem;
+  border-radius: 5px;
+  padding: 5px 5px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.btnSubmit{
+  padding: 1rem 2rem;
+  margin: 4rem 0;
+  width: 60%;
+}

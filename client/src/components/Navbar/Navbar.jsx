@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
-import style from "./Navbar.module.css";
+import style from "./NavBar.module.css";
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <nav className={style.navbar}>
-      <ul>
+      <div className={style.heading}>
+        <img src="../../assets/img/dog-face.png" alt="Dog-face" />
+        <h1>DoggyPedia</h1>
+      </div>
+      <ul className={style.ul}>
         <li>
           <Link to="/home">
             <p>Home</p>
@@ -20,4 +24,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

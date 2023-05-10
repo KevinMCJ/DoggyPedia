@@ -21,7 +21,8 @@ const syncTemperaments = async () => {
     }
   });
 
-  allTemps.forEach(async (temp) => {
+  // * Para cargar la BDD solo una vez.
+  !allTemps.length && allTemps.forEach(async (temp) => {
     await Temperament.create({
       name: temp,
     });

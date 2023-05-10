@@ -8,7 +8,7 @@ const {
 
 dogsRouter.get("/", getDogsHandler);
 
-dogsRouter.get("/:idRaza", getDogByIdHandler);
+dogsRouter.get("/:id", getDogByIdHandler);
 
 dogsRouter.post("/", createDogHandler);
 

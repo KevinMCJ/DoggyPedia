@@ -3,37 +3,40 @@ const { API_KEY } = process.env;
 const axios = require("axios");
 
 const { Dog, Temperament } = require("../db");
+const REGEX_NUMBERS = /(\d+(\.\d+)?)/g;
+const REGEX_STRINGS_COMMA = /,\s*/
 const endpoint = "https://api.thedogapi.com/v1/breeds?api_key=" + API_KEY;
+
 
 const getApiDogs = async () => {
   const { data } = await axios.get(endpoint);
 
   const filteredData = data.map(
     ({ id, name, weight, height, life_span, temperament, image }) => {
-      let finalWeight = weight.metric;
-      let finalHeight = height.metric;
-      let finalTemperament = temperament;
-      let lifeSpanArr = life_span.match(/\d+/g).map((n) => parseInt(n)); // *  RegEx devuelve array de enteros y después parseo los valores.
+      let finalWeight = weight.imperial;
+      let finalHeight = height.imperial;
+      let finalTemperament = []; 
+      let finalLifeSpan = life_span; 
 
-      // * Solo realiza la transformación correspondiente ej [10,15] si es posible (Algunos vienen NaN).
-      if (/\d+/.test(weight.metric)) {
-        finalWeight = finalWeight.split(" - ").map((n) => parseInt(n));
-      }
-      if (/\d+(\.\d+)?/.test(height.metric)) {
-        finalHeight = finalHeight.split(" - ").map((f) => parseFloat(f));
-      }
+      // * Encuentra los números(enteros o flotantes) y guarda las coincidencias en un array ["5", "6"] luego los transformo a números.
+      if (finalWeight) finalWeight = finalWeight.match(REGEX_NUMBERS).map((n) => Number(n));
 
-      if (temperament) finalTemperament = temperament.split(", ");
+      if (finalHeight) finalHeight = finalHeight.match(REGEX_NUMBERS).map((n) => Number(n));
 
-      // * Hay 4 razas sin temperaments. En este caso no se envía temperament ya que = undefined.
+      if(finalLifeSpan) finalLifeSpan = finalLifeSpan.match(REGEX_NUMBERS).map((n) => Number(n));
+
+      if (temperament) finalTemperament = temperament.split(REGEX_STRINGS_COMMA).map((t) => t.trim());
+
+      // * Hay 4 razas sin temperament(undefined). En este caso quedarían con temperament = []
       return {
         id,
         name,
         weight: finalWeight,
         height: finalHeight,
-        life_span: lifeSpanArr,
+        life_span: finalLifeSpan,
         temperament: finalTemperament,
         image: image.url,
+        origin: "api",
       };
     }
   );
@@ -60,6 +63,7 @@ const getDogsDB = async () => {
     life_span: dog.life_span,
     image: dog.image,
     temperament: dog.Temperaments.map((temp) => temp.name),
+    origin: "created",
   }));
 
   return cleanDogs;
@@ -81,7 +85,7 @@ const getDogById = async (id) => {
   if (Number(id)) id = parseInt(id);
 
   const allDogs = await getAllDogs();
-  const dog = allDogs.filter((dog) => dog.id === id);
+  const dog = allDogs.find((dog) => dog.id === id);
 
   if (!dog) throw Error("No se encontró una raza con ese ID");
 
@@ -113,9 +117,9 @@ const createDog = async ({
   weight,
   life_span,
   image,
-  temperaments,
+  temperament,
 }) => {
-  if (!name || !height || !weight || !life_span || !image) {
+  if (!name || !height || !weight || !life_span) {
     throw Error("Faltan datos requeridos");
   }
 
@@ -136,10 +140,10 @@ const createDog = async ({
     image,
   });
 
-  if (temperaments) {
+  if (temperament) {
     // * Puede no tener temperamentos.
     const temperamentsToAdd = await Temperament.findAll({
-      where: { name: temperaments },
+      where: { name: temperament },
     });
 
     await newDog.addTemperament(temperamentsToAdd);
@@ -148,4 +152,4 @@ const createDog = async ({
   return newDog;
 };
 
-module.exports = { getAllDogs, getDogById, getDogsByName, createDog };
+module.exports = { getAllDogs, getApiDogs, getDogsDB, getDogById, getDogsByName, createDog };
