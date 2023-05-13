@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className={style.navbar}>
       <div className={style.heading}>
-        <img src="../../assets/img/dog-face.png" alt="Dog-face" />
+        <img src="https://www.svgrepo.com/show/405231/dog-face.svg" alt="Dog face" />
         <h1>DoggyPedia</h1>
       </div>
       <ul className={style.ul}>

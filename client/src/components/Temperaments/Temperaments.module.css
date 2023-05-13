@@ -2,13 +2,19 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 0.8rem;
+    overflow-y: scroll;
+    max-height: 80%;
+    gap: 0.6rem;
+    margin: 1.2rem;
 }
 
 .container p{
     padding: 0.1rem 0.4rem;
     border-radius: 40px;
-    border: 1px solid black;
-    font-size: 0.7rem;
-    margin: 0 0 ;
+    border: 2px solid #413012;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: inherit;
+    background-color: #6d511e;
 }

@@ -6,7 +6,8 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import Pagination from "../../components/Pagination/Pagination";
 import FilterButton from "../../components/Filter/FilterButton/FilterButton";
 import SortBy from "../../components/SortBy/SortBy";
-import style from "./Home.module.css"
+import style from "./Home.module.css";
+import clearIcon from "../../assets/img/clear-icon.svg"
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -42,28 +43,28 @@ const Home = () => {
   };
 
   return (
-    <>
-      <div>
-        <SearchBar setCurrentPage={setCurrentPage} />
-      </div>
+    <div className={style.body}>
+      <SearchBar setCurrentPage={setCurrentPage} />
       <div className={style.filter_sort_section}>
-        <div>
-          <FilterButton setCurrentPage={setCurrentPage}/>
-          <SortBy setCurrentPage={setCurrentPage} />
-        </div>
-        <button onClick={() => dispatch(clearAllFilters())}>
+        <FilterButton setCurrentPage={setCurrentPage} />
+        <SortBy setCurrentPage={setCurrentPage} />
+        <button onClick={() => dispatch(clearAllFilters())} className={style.clearBtn}>
           Clear All Filters
+          <img src={clearIcon} alt="Clear icon" />
         </button>
       </div>
       <CardsContainer breeds={displayedItems} />
-      <Pagination
-        itemsPerPage={itemsPerPage}
-        totalItems={breeds.length}
-        paginate={paginate}
-        previousPage={previousPage}
-        nextPage={nextPage}
-      />
-    </>
+      {breeds.length > itemsPerPage && (
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          totalItems={breeds.length}
+          paginate={paginate}
+          currentPage={currentPage}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
+      )}
+    </div>
   );
 };
 

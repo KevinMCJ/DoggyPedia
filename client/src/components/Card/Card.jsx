@@ -2,13 +2,16 @@ import style from "./Card.module.css";
 import Temperaments from "../Temperaments/Temperaments";
 import { Link } from "react-router-dom";
 
-const Card = ({breed}) => {
+const Card = ({ breed }) => {
   const { id, name, image, weight, temperament } = breed;
   let formatWeightString = "???";
 
   // ? Entra => weight: [min, max] o weight: [max]. Quedaría => 10 - 20 O ??? - 10
-  if(weight){
-    formatWeightString = weight.length === 1 ? `??? - ${weight[0]}` : `${weight[0]} - ${weight[1]}`;
+  if (weight) {
+    formatWeightString =
+      weight.length === 1
+        ? `??? - ${weight[0]}`
+        : `${weight[0]} - ${weight[1]}`;
   }
 
   return (
@@ -22,7 +25,9 @@ const Card = ({breed}) => {
             temperament={temperament}
           />
         )}
-        <p>Weight: {formatWeightString}</p> 
+        <p className={!temperament.length && style.no_temp}>
+          Weight: {formatWeightString} Lb
+        </p>
       </div>
     </Link>
   );

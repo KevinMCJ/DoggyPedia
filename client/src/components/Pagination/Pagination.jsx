@@ -1,9 +1,12 @@
 import style from "./Pagination.module.css";
+import arrowLeft from "../../assets/img/arrow-left.svg";
+import arrowRight from "../../assets/img/arrow-right.svg";
 
 const Pagination = ({
   itemsPerPage,
   totalItems,
   paginate,
+  currentPage,
   previousPage,
   nextPage,
 }) => {
@@ -16,55 +19,33 @@ const Pagination = ({
 
   return (
     <div className={style.container}>
+      <button
+        onClick={previousPage}
+        className={`${currentPage === 1 && style.btnDisable} ${style.arrowBtn}`}
+      >
+        <img src={arrowLeft} alt="Arrow left" />
+      </button>
       <ul className={style.pagination}>
-        <li onClick={previousPage} className="page-number">
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            color="#000000"
-          >
-            <path
-              d="M21 12H3m0 0l8.5-8.5M3 12l8.5 8.5"
-              stroke="#000000"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-        </li>
         {pageNumbers.map((number) => (
           <li
             key={number}
             onClick={() => paginate(number)}
-            className={style.page_number}
+            className={`${style.page_number} ${currentPage === number && style.active}`}
           >
             {number}
           </li>
         ))}
-        <li onClick={nextPage} className="page-number">
-          <svg
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            color="#000000"
-          >
-            <path
-              d="M3 12h18m0 0l-8.5-8.5M21 12l-8.5 8.5"
-              stroke="#000000"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
-        </li>
       </ul>
+      <button
+        onClick={nextPage}
+        className={`
+              ${
+                currentPage === Math.ceil(totalItems / itemsPerPage) &&
+                style.btnDisable
+              } ${style.arrowBtn}`}
+      >
+        <img src={arrowRight} alt="Arrow right" />
+      </button>
     </div>
   );
 };
