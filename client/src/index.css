@@ -6,7 +6,8 @@
   font-family: "Nunito", sans-serif;
 }
 
-body {
+html, body {
+  min-height: 100vh;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -43,4 +44,5 @@ code {
 .App {
   background-color: #623e1e;
   background-image: url("./assets/img/paw-print.svg");
+  min-height: 100vh;
 }
