@@ -4,41 +4,63 @@ const axios = require("axios");
 
 const { Dog, Temperament } = require("../db");
 const REGEX_NUMBERS = /(\d+(\.\d+)?)/g;
-const REGEX_STRINGS_COMMA = /,\s*/
+const REGEX_STRINGS_COMMA = /,\s*/;
 const endpoint = "https://api.thedogapi.com/v1/breeds?api_key=" + API_KEY;
-
 
 const getApiDogs = async () => {
   const { data } = await axios.get(endpoint);
 
-  const filteredData = data.map(
-    ({ id, name, weight, height, life_span, temperament, image }) => {
-      let finalWeight = weight.imperial;
-      let finalHeight = height.imperial;
-      let finalTemperament = []; 
-      let finalLifeSpan = life_span; 
-
-      // * Encuentra los números(enteros o flotantes) y guarda las coincidencias en un array ["5", "6"] luego los transformo a números.
-      if (finalWeight) finalWeight = finalWeight.match(REGEX_NUMBERS).map((n) => Number(n));
-
-      if (finalHeight) finalHeight = finalHeight.match(REGEX_NUMBERS).map((n) => Number(n));
-
-      if(finalLifeSpan) finalLifeSpan = finalLifeSpan.match(REGEX_NUMBERS).map((n) => Number(n));
-
-      if (temperament) finalTemperament = temperament.split(REGEX_STRINGS_COMMA).map((t) => t.trim());
-
-      // * Hay 4 razas sin temperament(undefined). En este caso quedarían con temperament = []
-      return {
+  const filteredData = await Promise.all(
+    data.map(
+      async ({
         id,
         name,
-        weight: finalWeight,
-        height: finalHeight,
-        life_span: finalLifeSpan,
-        temperament: finalTemperament,
-        image: image?.url,
-        origin: "api",
-      };
-    }
+        weight,
+        height,
+        life_span,
+        temperament,
+        reference_image_id,
+      }) => {
+        let finalWeight = weight.imperial;
+        let finalHeight = height.imperial;
+        let finalTemperament = [];
+        let finalLifeSpan = life_span;
+
+        if (finalWeight)
+          finalWeight = finalWeight.match(REGEX_NUMBERS).map((n) => Number(n));
+
+        if (finalHeight)
+          finalHeight = finalHeight.match(REGEX_NUMBERS).map((n) => Number(n));
+
+        if (finalLifeSpan)
+          finalLifeSpan = finalLifeSpan
+            .match(REGEX_NUMBERS)
+            .map((n) => Number(n));
+
+        if (temperament)
+          finalTemperament = temperament
+            .split(REGEX_STRINGS_COMMA)
+            .map((t) => t.trim());
+
+        // * Nuevo endpoint para obtener la imagen mediante un reference_id
+        const {
+          data: { url: image },
+        } = await axios.get(
+          `https://api.thedogapi.com/v1/images/${reference_image_id}?limit=1&${API_KEY}`
+        );
+
+        return {
+          id,
+          name,
+          weight: finalWeight,
+          height: finalHeight,
+          life_span: finalLifeSpan,
+          temperament: finalTemperament,
+          image: image || 'https://static4.depositphotos.com/1011415/285/v/600/depositphotos_2855252-stock-illustration-little-jack-russel.jpg',
+          origin: "api",
+        };
+      }
+    )
   );
 
   return filteredData;
@@ -152,4 +174,11 @@ const createDog = async ({
   return newDog;
 };
 
-module.exports = { getAllDogs, getApiDogs, getDogsDB, getDogById, getDogsByName, createDog };
+module.exports = {
+  getAllDogs,
+  getApiDogs,
+  getDogsDB,
+  getDogById,
+  getDogsByName,
+  createDog,
+};
