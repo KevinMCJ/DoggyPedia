@@ -35,7 +35,7 @@ const getApiDogs = async () => {
         height: finalHeight,
         life_span: finalLifeSpan,
         temperament: finalTemperament,
-        image: image.url,
+        image: image?.url,
         origin: "api",
       };
     }
