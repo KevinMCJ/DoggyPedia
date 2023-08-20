@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { getBreeds, clearAllFilters } from "../../redux/actions";
+import { clearAllFilters } from "../../redux/actions";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Pagination from "../../components/Pagination/Pagination";
 import FilterButton from "../../components/Filter/FilterButton/FilterButton";
@@ -19,10 +19,6 @@ const Home = () => {
   // * Pagination logic
   const indexOfLastBreed = currentPage * itemsPerPage;
   const indexOfFirstBreed = indexOfLastBreed - itemsPerPage;
-
-  useEffect(() => {
-    dispatch(getBreeds());
-  }, [dispatch]);
 
   useEffect(() => {
     setDisplayedItems(breeds.slice(indexOfFirstBreed, indexOfLastBreed));
