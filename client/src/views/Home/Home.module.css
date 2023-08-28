@@ -50,17 +50,3 @@
     border-radius: 9999px;
 }
 
-/********************** RESPONSIVE BREAK-POINTS *******************/
-@media screen and (max-width: 1024px) {
-  :root{
-    font-size: 8px;
-  }
-}
-
-
-@media screen and (max-width: 600px) {
-  :root{
-    font-size: 6.5px;
-  }
-}
-

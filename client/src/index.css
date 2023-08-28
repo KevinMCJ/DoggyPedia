@@ -6,7 +6,8 @@
   font-family: "Nunito", sans-serif;
 }
 
-html, body {
+html,
+body {
   min-height: 100vh;
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -14,7 +15,7 @@ html, body {
   color: #fdf6e2;
 }
 
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
@@ -45,4 +46,11 @@ code {
   background-color: #623e1e;
   background-image: url("./assets/img/paw-print.svg");
   min-height: 100vh;
+}
+
+/********************** RESPONSIVE BREAK-POINTS *******************/
+@media screen and (max-width: 1024px) {
+  :root {
+    font-size: 14px;
+  }
 }
