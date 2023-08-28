@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getTemperaments, filterBreeds } from "../../../redux/actions";
-import { useState, useEffect } from "react";
+import { filterBreeds } from "../../../redux/actions";
+import { useState } from "react";
 import style from "./FilterOptions.module.css";
 
 const FilterOptions = ({ setCurrentPage, setIsOpen }) => {
@@ -8,10 +8,6 @@ const FilterOptions = ({ setCurrentPage, setIsOpen }) => {
   const temperaments = useSelector((state) => state.temperaments);
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState("all");
-
-  useEffect(() => {
-    dispatch(getTemperaments());
-  }, [dispatch]);
 
   const handleCheckboxChange = (event) => {
     const { name, value, checked } = event.target;
