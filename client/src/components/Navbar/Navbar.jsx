@@ -15,10 +15,10 @@ const NavBar = () => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -29,11 +29,19 @@ const NavBar = () => {
           src="https://www.svgrepo.com/show/405231/dog-face.svg"
           alt="Dog face"
         />
-        <h1>DoggyPedia</h1>
+        <Link to="/">
+          <h1>DoggyPedia</h1>
+        </Link>
       </div>
-      {!isOpen && <button onClick={() => setIsOpen(true)} className={styles.toggleBtn}>
-        <img src={hamburger} alt="Menu hamburger icon" className={styles.menu_icon} />
-      </button>}
+      {!isOpen && (
+        <button onClick={() => setIsOpen(true)} className={styles.toggleBtn}>
+          <img
+            src={hamburger}
+            alt="Menu hamburger icon"
+            className={styles.menu_icon}
+          />
+        </button>
+      )}
       <ul className={`${styles.ul} ${isOpen ? styles.open : ""}`}>
         <li>
           <Link to="/home">
@@ -45,8 +53,15 @@ const NavBar = () => {
             <p>Create</p>
           </Link>
         </li>
-        <button onClick={() => setIsOpen(false)} className={styles.btnCloseMenu}>
-          <img src={menuClose} alt="Menu close btn" className={styles.menu_icon} />
+        <button
+          onClick={() => setIsOpen(false)}
+          className={styles.btnCloseMenu}
+        >
+          <img
+            src={menuClose}
+            alt="Menu close btn"
+            className={styles.menu_icon}
+          />
         </button>
       </ul>
     </nav>
