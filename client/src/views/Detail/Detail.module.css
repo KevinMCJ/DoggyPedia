@@ -6,10 +6,11 @@
 }
 
 .detail {
+  box-sizing: border-box;
   display: flex;
   width: 80%;
   max-width: 1200px;
-  height: auto;
+  height: 80%;
   border: 10px solid #34281e;
   border-radius: 40px;
   box-shadow: 0px 2px 21px 2px rgba(0, 0, 0, 0.651);
@@ -28,8 +29,10 @@
 }
 
 .image {
-  width: 400px;
-  height: 400px;
+  width: 25rem;
+  height: 25rem;
+  object-fit: cover;
+  object-position: center;
   max-height: 400px;
   margin: 0 1rem;
   border-radius: 9999px;
@@ -92,7 +95,12 @@
   font-size: 1.8rem;
   position: absolute;
   right: 0;
-  top: -5px;
+  top: -0.3rem;
+}
+
+.icon {
+  width: 2.12rem;
+  height: 2.12rem;
 }
 
 .grid_temperaments {
@@ -101,7 +109,7 @@
   padding: 0;
   flex: 1;
   justify-items: center;
-  color: #200F02;
+  color: #f1ece7;
 }
 
 .non_symmetrical li:last-child{
@@ -115,9 +123,56 @@
   background: linear-gradient(45deg, #b8956b 0%, #a38560 39%, #826b4f 100%);
   font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-align: center;
   min-height: 100%;
   width: calc(100% - 2px);
   border: 2px solid #58381b;
+}
+
+/************ RESPONSIVE ************/
+/* @media screen and (max-width: 1150px) {
+  :root{
+    font-size: 70%;
+  }
+} */
+
+/* @media screen and (max-width: 980px) {
+  .detail{
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+  }
+
+  .breed_visual{
+    flex-direction: row;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  .name {
+    padding: 0 2rem;
+  }
+
+  .image {
+    object-fit: fill;
+    max-height: 400px;
+    border-radius: unset;
+    border: 2px solid #6e521f;
+    justify-self: flex-end;
+    margin: 0;
+    flex: 1;
+  }
+
+  .temp_item{
+    padding: 0.35rem;
+  }
+} */
+
+@media screen and (max-width: 600px) {
+  .info_item {
+    grid-template-columns: 1fr;
+  }
 }

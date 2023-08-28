@@ -38,21 +38,21 @@ const Detail = () => {
             <h2 className={style.id}>{breed.id}</h2>
             <div className={style.info_item}>
               <div className={style.item_header}>
-                <img src={weight_icon} alt="Weight icon" />
+                <img src={weight_icon} alt="Weight icon" className={style.icon}/>
                 <h3>WEIGHT</h3>
               </div>
               <p>{weightFormat}</p>
             </div>
             <div className={style.info_item}>
               <div className={style.item_header}>
-                <img src={height_icon} alt="Height icon" />
+                <img src={height_icon} alt="Height icon" className={style.icon}/>
                 <h3>HEIGHT</h3>
               </div>
               <p>{heightFormat}</p>
             </div>
             <div className={style.info_item}>
               <div className={style.item_header}>
-                <img src={life_bar} alt="Life bar icon" />
+                <img src={life_bar} alt="Life bar icon" className={style.icon}/>
                 <h3>LIFE SPAN</h3>
               </div>
               <p>About {breed.life_span.join(" to ")} Years</p>
