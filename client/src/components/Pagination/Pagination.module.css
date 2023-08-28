@@ -20,6 +20,8 @@
   padding: 0.2rem 0.8rem;
   border: 2px solid #2d2414;
   background-color: #27190c;
+  width: 2ch;
+  text-align: center;
   cursor: pointer;
 }
 

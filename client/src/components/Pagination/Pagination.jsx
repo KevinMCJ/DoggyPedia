@@ -2,6 +2,18 @@ import style from "./Pagination.module.css";
 import arrowLeft from "../../assets/img/arrow-left.svg";
 import arrowRight from "../../assets/img/arrow-right.svg";
 
+const generatePageNumbers = (currentPage, totalPages) => {
+  const pageNumbers = new Set();
+
+  pageNumbers.add(1);
+  if (currentPage > 1) pageNumbers.add(currentPage - 1);
+  pageNumbers.add(currentPage);
+  if (currentPage < totalPages) pageNumbers.add(currentPage + 1);
+  pageNumbers.add(totalPages);
+
+  return Array.from(pageNumbers).sort((a, b) => a - b);
+};
+
 const Pagination = ({
   itemsPerPage,
   totalItems,
@@ -10,12 +22,8 @@ const Pagination = ({
   previousPage,
   nextPage,
 }) => {
-  const pageNumbers = [];
-
-  // * Calcula el numero de paginas.
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const pageNumbers = generatePageNumbers(currentPage, totalPages);
 
   return (
     <div className={style.container}>
