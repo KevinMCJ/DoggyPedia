@@ -22,6 +22,11 @@
   cursor: pointer;
 }
 
+.icon {
+  width: 2.125rem; 
+  height: 2.125rem;
+}
+
 .arrowBtn{
   display: flex;
   justify-content: center;

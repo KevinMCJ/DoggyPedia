@@ -23,7 +23,7 @@ const Pagination = ({
         onClick={previousPage}
         className={`${currentPage === 1 && style.btnDisable} ${style.arrowBtn}`}
       >
-        <img src={arrowLeft} alt="Arrow left" />
+        <img src={arrowLeft} alt="Arrow left" className={style.icon}/>
       </button>
       <ul className={style.pagination}>
         {pageNumbers.map((number) => (
@@ -44,7 +44,7 @@ const Pagination = ({
                 style.btnDisable
               } ${style.arrowBtn}`}
       >
-        <img src={arrowRight} alt="Arrow right" />
+        <img src={arrowRight} alt="Arrow right" className={style.icon} />
       </button>
     </div>
   );
