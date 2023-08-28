@@ -32,7 +32,11 @@ const validation = (dataForm) => {
     errors.max_height = "Cannot be greater than 45in";
   }
 
-  if (dataForm.min_height > dataForm.max_height) {
+  if (
+    dataForm.min_height &&
+    dataForm.max_height &&
+    dataForm.min_height > dataForm.max_height
+  ) {
     errors.min_height = "Cannot be greater than maximum";
     errors.max_height = "Cannot be less than minimum";
   }
@@ -75,7 +79,7 @@ const validation = (dataForm) => {
   if (!dataForm.max_life_span.trim()) {
     errors.max_life_span = "Field required";
   } else if (!/^\d+$/.test(dataForm.max_life_span)) {
-    errors.max_weight = "Not an integer";
+    errors.max_life_span = "Not an integer";
   } else if (dataForm.max_life_span > 30) {
     errors.max_life_span = "Cannot be greater than 30";
   }
