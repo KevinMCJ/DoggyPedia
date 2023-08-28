@@ -7,7 +7,7 @@
   color: #f5e0b9;
 }
 
-.btnClose:hover{
+.btnClose:hover {
   background: linear-gradient(to right, #5b4733 0%, #633813 100%);
 }
 
@@ -55,7 +55,7 @@
   row-gap: 1rem;
   max-height: calc(100vh - 20.6rem);
   overflow-y: scroll;
-  border-right: 2px solid #412C0D;
+  border-right: 2px solid #412c0d;
   margin: 0.5rem 0;
 }
 
@@ -91,14 +91,14 @@
   font-weight: 900;
 }
 
-.filter_title{
+.filter_title {
   padding: 1rem 0;
   font-size: 1.2rem;
   text-align: center;
   font-weight: 900;
   letter-spacing: 1px;
   background-color: #5b3e25;
-  color: #F5E0B9;
+  color: #f5e0b9;
 }
 
 .btnFilter {
@@ -125,4 +125,47 @@
   scale: 1.05;
   transition: all 0.2s;
   transform: translateY(-2px);
+}
+
+@media screen and (max-width: 1024px) {
+  .filter_modal {
+    width: 95%;
+  }
+
+  .filter_grid {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .temperaments_list {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .filter_grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 2fr 1fr;
+    overflow: auto;
+  }
+
+  .temperaments_list{
+    border: none;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 0 0.5rem;
+  }
+
+  .temperament_item label{
+    width: 10ch;
+  }
+
+  .origin_list{
+    align-items: center;
+    padding: 0;
+  }
+
+  .origin_list label {
+    width: 11ch;
+  }
 }
