@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
-import style from "./NavBar.module.css";
+import styles from "./NavBar.module.css";
 
 const NavBar = () => {
   return (
-    <nav className={style.navbar}>
-      <div className={style.heading}>
+    <nav className={styles.navbar}>
+      <div className={styles.heading}>
         <img src="https://www.svgrepo.com/show/405231/dog-face.svg" alt="Dog face" />
         <h1>DoggyPedia</h1>
       </div>
-      <ul className={style.ul}>
+      <ul className={styles.ul}>
         <li>
           <Link to="/home">
             <p>Home</p>
@@ -16,7 +16,7 @@ const NavBar = () => {
         </li>
         <li>
           <Link to="/create">
-            <p>Create Dog</p>
+            <p>Create</p>
           </Link>
         </li>
       </ul>
