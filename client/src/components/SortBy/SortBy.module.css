@@ -1,17 +1,39 @@
-.sort_container{
-    display: flex;
-    gap: 1.2rem;
+.sort_container {
+  display: flex;
+  gap: 1.2rem;
 }
 
 label {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 .select {
-    padding: 0.2rem;
-    font-size: 1rem;
-    font-weight: 700;
-    background-color: #e7c381;
-    border: 2px solid #000000;
-    border-radius: 8px;
+  padding: 0.2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: #e7c381;
+  border: 2px solid #000000;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 920px) {
+  .sort_container > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .sort_container {
+    flex-direction: column;
+    order: -1;
+  }
+
+  .sort_container > div > select {
+    width: 100%;
+    text-align: center;
+  }
 }

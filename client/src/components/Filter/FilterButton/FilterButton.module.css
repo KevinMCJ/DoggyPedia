@@ -1,6 +1,7 @@
 .filterBtn {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0.4rem 0.8rem;
   background: linear-gradient(to right, #251a0f, #302112);
   color: inherit;
