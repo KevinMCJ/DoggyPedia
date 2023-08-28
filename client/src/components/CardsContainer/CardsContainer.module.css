@@ -45,4 +45,10 @@
   .container {
     grid-template-columns: 1fr;
   }
+
+  .container,
+  .no_matches {
+    padding: 20px;
+    margin: 1rem 0;
+  }
 }
