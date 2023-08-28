@@ -33,16 +33,14 @@ const Form = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [hasErrors, setHasErrors] = useState(true);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setDataForm({ ...dataForm, [name]: value });
-    setErrors(
-      validation({
-        ...dataForm,
-        [name]: value,
-      })
-    );
+    const updatedErrors = validation({ ...dataForm, [name]: value });
+    setErrors(updatedErrors);
+    setHasErrors(Object.keys(updatedErrors).length > 0);
   };
 
   const handleSelect = (event) => {
@@ -61,12 +59,14 @@ const Form = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    try {
-      const newBreed = formatBreed(dataForm);
-      dispatch(createBreed(newBreed));
-      alert("Breed created successfully");
-    } catch (error) {
-      alert("Error creating a new breed : " + error.message);
+    if (!hasErrors) {
+      try {
+        const newBreed = formatBreed(dataForm);
+        dispatch(createBreed(newBreed));
+        alert("Breed created successfully");
+      } catch (error) {
+        alert("Error creating a new breed : " + error.message);
+      }
     }
   };
 
@@ -240,8 +240,12 @@ const Form = () => {
               )}
             </div>
           </div>
-          <button type="submit" className={style.btnSubmit}>
-            Create Breed
+          <button
+            type="submit"
+            className={style.btnSubmit}
+            disabled={hasErrors}
+          >
+            Create breed
           </button>
         </form>
       </div>
