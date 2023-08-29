@@ -7,6 +7,7 @@ import style from "./Detail.module.css";
 import life_bar from "../../assets/img/life-bar.svg";
 import weight_icon from "../../assets/img/weight-icon.svg";
 import height_icon from "../../assets/img/height-icon.svg";
+import running_dog from "../../assets/img/running_dog.gif";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Detail = () => {
   return (
     <div className={style.container}>
       {loading ? (
-        <h3>Loading...</h3> // Hacer un componente de loading
+        <img src={running_dog} alt="Loading running dog" className={style.loading_dog}/>
       ) : (
         <div className={style.detail}>
           <div className={style.breed_visual}>

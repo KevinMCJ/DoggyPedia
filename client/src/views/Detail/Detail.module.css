@@ -5,6 +5,10 @@
   justify-content: center;
 }
 
+.loading_dog{
+  max-width: 200px;
+}
+
 .detail {
   box-sizing: border-box;
   display: flex;
@@ -149,8 +153,6 @@
 @media screen and (max-width: 620px) {
   .container{
     padding: 10px;
-    align-items: initial;
-    justify-content: initial;
   }
 
   .detail{
