@@ -94,6 +94,7 @@
 .error {
   display: block;
   color: red;
+  text-wrap: balance;
 }
 
 .inputName,
@@ -246,6 +247,11 @@
   .inputContainer {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .inputWrapper{
+    text-align: initial;
+    gap: 5px;
   }
 
   .inputName,
