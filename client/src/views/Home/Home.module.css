@@ -1,8 +1,10 @@
 .body {
   min-height: 100vh;
-  margin: 0 2rem;
   display: flex;
   flex-direction: column;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .filter_sort_section {

@@ -23,7 +23,8 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={styles.container}>
+      <div className={styles.navbar}>
       <div className={styles.heading}>
         <img
           src="https://www.svgrepo.com/show/405231/dog-face.svg"
@@ -64,6 +65,7 @@ const NavBar = () => {
           />
         </button>
       </ul>
+      </div>
     </nav>
   );
 };

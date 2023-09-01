@@ -30,6 +30,8 @@
   height: 95%;
   color: #2c1701e5;
   z-index: 999;
+  max-height: 1200px;
+  max-width: 2000px;
 }
 
 .filter_container {
