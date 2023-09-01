@@ -25,7 +25,7 @@ const Card = ({ breed }) => {
             temperament={temperament}
           />
         )}
-        <p className={!temperament.length && style.no_temp}>
+        <p>
           Weight: {formatWeightString} Lb
         </p>
       </div>
