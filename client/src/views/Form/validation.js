@@ -1,5 +1,4 @@
-const urlRegex =
-  /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/;
 const numberRegex = /^[-+]?[0-9]*\.?[0-9]+$/;
 const breedRegex = /^[a-zA-ZÁ-ú\s-]+$/;
 
@@ -81,7 +80,12 @@ const validation = (dataForm) => {
     errors.max_life_span = "Cannot be less than minimum";
   }
 
-  // ! TO DO: DON'T WORK. Image
+  // * Temperament
+  if(!dataForm.temperament.length){
+    errors.temperament = "At least one temperament";
+  }
+
+  // * Image
   if (dataForm.image.trim() && !urlRegex.test(dataForm.image.trim())) {
     errors.image = "Invalid URL";
   }
