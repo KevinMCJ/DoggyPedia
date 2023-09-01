@@ -43,19 +43,23 @@ const FilterOptions = ({ setCurrentPage, setIsOpen }) => {
         <div className={style.filter_grid}>
           <div className={style.filter_temp_section}>
             <h4 className={style.filter_title}>Temperaments</h4>
-            <ul className={style.temperaments_list}>
-              {temperaments.map((temp) => (
-                <li key={temp} className={style.temperament_item}>
-                  <input
-                    type="checkbox"
-                    name="temperament"
-                    value={temp}
-                    checked={selectedTemperaments.includes(temp)}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label htmlFor="temperament">{temp}</label>
-                </li>
-              ))}
+            <ul className={`${temperaments.length ? style.temperaments_list : style.empty_list}`}>
+              {temperaments.length ? (
+                temperaments.map((temp) => (
+                  <li key={temp} className={style.temperament_item}>
+                    <input
+                      type="checkbox"
+                      name="temperament"
+                      value={temp}
+                      checked={selectedTemperaments.includes(temp)}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor="temperament">{temp}</label>
+                  </li>
+                ))
+              ) : (
+                <li className={style.no_temp_message}>No temperaments</li>
+              )}
             </ul>
           </div>
           <div className={style.filter_origin_section}>

@@ -61,6 +61,20 @@
   margin: 0.5rem 0;
 }
 
+.empty_list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+  height: calc(100vh - 20.6rem);
+}
+
+.no_temp_message{
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
 .temperament_item input,
 .origin_list input {
   width: 20px;
