@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createBreed } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import validation from "./validation";
 import style from "./Form.module.css";
 import imageTest from "../../assets/img/landing.jpg";
@@ -18,6 +20,7 @@ const formatBreed = (dataForm) => {
 
 const Form = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const temperaments = useSelector((state) => state.temperaments);
 
   const [dataForm, setDataForm] = useState({
@@ -34,17 +37,20 @@ const Form = () => {
 
   const [errors, setErrors] = useState({});
   const [hasErrors, setHasErrors] = useState(true);
+  // ? Identifica si el usuario interactuó con el formulario.
+  const [userInteraction, setUserInteraction] = useState(false);
 
   const handleChange = (event) => {
+    if(!userInteraction) setUserInteraction(true);
     const { name, value } = event.target;
     setDataForm({ ...dataForm, [name]: value });
-    const updatedErrors = validation({ ...dataForm, [name]: value });
-    setErrors(updatedErrors);
-    setHasErrors(Object.keys(updatedErrors).length > 0);
+    setErrors(validation({ ...dataForm, [name]: value }));
   };
 
   const handleSelect = (event) => {
     let { value } = event.target;
+
+    if(!userInteraction) setUserInteraction(true);
 
     if (
       dataForm.temperament.length < 20 &&
@@ -55,6 +61,13 @@ const Form = () => {
         temperament: [...dataForm.temperament, value],
       });
     }
+
+    setErrors(
+      validation({
+        ...dataForm,
+        temperament: value,
+      })
+    );
   };
 
   const handleSubmit = (event) => {
@@ -63,9 +76,19 @@ const Form = () => {
       try {
         const newBreed = formatBreed(dataForm);
         dispatch(createBreed(newBreed));
-        alert("Breed created successfully");
+        Swal.fire({
+          icon: "success",
+          title: "Breed created successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => navigate("/home"));
       } catch (error) {
-        alert("Error creating a new breed : " + error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error creating a new breed. Try again later.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     }
   };
@@ -79,14 +102,27 @@ const Form = () => {
       ...dataForm,
       temperament: filteredTemps,
     });
+    
+    setErrors(validation({
+      ...dataForm,
+      temperament: filteredTemps,
+    }));
   };
+
+  // ? Cada vez que cambie el objeto errors, vera si puede activar el botón del formulario.
+  useEffect(() => {
+    if(userInteraction){
+      setHasErrors(Object.keys(errors).length > 0);
+    }
+  }, [errors, userInteraction])
 
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
-        <img src={imageTest} alt="Test image" />
+        <img src={imageTest} alt="Dogs with different breeds" />
         <form onSubmit={handleSubmit} className={style.form}>
           <h1>NEW BREED</h1>
+
           <div className={style.inputName}>
             <label>Name</label>
             <div className={style.inputWrapper}>
@@ -105,6 +141,7 @@ const Form = () => {
               )}
             </div>
           </div>
+
           <div className={style.inputContainer}>
             <label>Height (Inches)</label>
             <div className={style.inputWrapper}>
@@ -138,6 +175,7 @@ const Form = () => {
               )}
             </div>
           </div>
+
           <div className={style.inputContainer}>
             <label>Weight (Pounds)</label>
             <div className={style.inputWrapper}>
@@ -171,6 +209,7 @@ const Form = () => {
               )}
             </div>
           </div>
+
           <div className={style.inputContainer}>
             <label>Life span (Years)</label>
             <div className={style.inputWrapper}>
@@ -204,6 +243,7 @@ const Form = () => {
               )}
             </div>
           </div>
+
           <div className={style.temperamentBox}>
             <select onChange={handleSelect} className={style.select}>
               {temperaments.map((temp, index) => (
@@ -221,15 +261,17 @@ const Form = () => {
                 ))}
               </ul>
             ) : (
-              <p>Dog temperament (optional)</p>
+              <span className={style.error}>{errors?.temperament}</span>
             )}
           </div>
+
           <div className={`${style.inputImageBox}`}>
             <label htmlFor="image">Image (optional)</label>
             <div className={style.inputWrapper}>
               <input
                 type="text"
                 name="image"
+                onChange={handleChange}
                 placeholder="https://example.com"
                 className={`${style.input} ${style.inputImage} ${
                   errors.image ? style.input_invalid : style.input_valid
@@ -240,6 +282,7 @@ const Form = () => {
               )}
             </div>
           </div>
+
           <button
             type="submit"
             className={style.btnSubmit}
