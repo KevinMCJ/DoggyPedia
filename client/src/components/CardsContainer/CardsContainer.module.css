@@ -6,12 +6,12 @@
     inset 5px 5px 10px 0px rgba(0, 0, 0, 0.61);
   padding: 2rem;
   border-radius: 10px;
-  flex: 1;
 }
 
 .container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  align-items: center;
   gap: 2.5rem 1rem;
 }
 
@@ -19,6 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
 }
 
 .not_found {
@@ -35,7 +36,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 1068px) {
   .container {
     grid-template-columns: 1fr 1fr;
   }
