@@ -8,6 +8,7 @@ export const FILTER_BREEDS = "FILTER_BREEDS";
 export const SORT_BY_WEIGHT = "SORT_BY_WEIGHT";
 export const SORT_BY_NAME = "SORT_BY_NAME";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
+export const SET_LOADING = "SET_LOADING";
 
 export const getBreeds = () => {
   const endpoint = `http://localhost:3001/dogs`;
@@ -93,6 +94,13 @@ export const sortBreedsByName = (order) => {
       type: SORT_BY_NAME,
       payload: order,
     });
+  };
+};
+
+export const setLoading = (status) => {
+  return {
+    type: SET_LOADING,
+    payload: status,
   };
 };
 

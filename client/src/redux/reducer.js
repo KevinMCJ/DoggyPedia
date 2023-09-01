@@ -7,6 +7,7 @@ import {
   FILTER_BREEDS,
   SORT_BY_WEIGHT,
   SORT_BY_NAME,
+  SET_LOADING,
   CLEAR_FILTERS,
 } from "./actions";
 
@@ -15,6 +16,7 @@ const initialState = {
   copyBreeds: [],
   breed: {},
   temperaments: [],
+  isLoading: true,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -74,6 +76,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, copyBreeds: sortedBreedsByName };
     case CLEAR_FILTERS:
       return { ...state, copyBreeds: state.allBreeds };
+    case SET_LOADING:
+      return { ...state, isLoading: action.payload };
     default:
       return { ...state };
   }

@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { Landing, Home, Detail, Form, Error } from "./views";
 import NavBar from "./components/NavBar/NavBar";
 import { useEffect } from "react";
-import { getBreeds, getTemperaments } from "./redux/actions";
+import { getBreeds, getTemperaments, setLoading } from "./redux/actions";
 import { useDispatch } from "react-redux";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     Promise.all([
       dispatch(getBreeds()),
       dispatch(getTemperaments()),
-    ])
+    ]).finally(() => dispatch(setLoading(false)));
   }, [dispatch])
 
   return (
