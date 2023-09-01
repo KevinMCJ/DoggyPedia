@@ -32,17 +32,15 @@ const rootReducer = (state = initialState, action) => {
     case GET_TEMPERAMENTS:
       return { ...state, temperaments: action.payload };
     case CREATE_BREED:
-      return { ...state, allBreeds: [...state.allBreeds, action.payload] };
+      const updatedDogs = [...state.allBreeds, action.payload];
+      return { ...state, allBreeds: updatedDogs, copyBreeds: updatedDogs };
     case FILTER_BREEDS:
       const { temperament, origin } = action.payload;
-      console.log("El payload temperament es", temperament);
-      console.log("El payload origin es", origin);
       const filteredBreeds = state.allBreeds.filter(
         (breed) =>
           temperament.every((temp) => breed.temperament?.includes(temp)) &&
           (origin === "all" || breed.origin === origin)
       );
-      console.log(filteredBreeds);
       return { ...state, copyBreeds: filteredBreeds };
     case SORT_BY_WEIGHT:
       // * weight: [min, max] o weight[number] si solo tiene un elemento tomo este como el máximo.
