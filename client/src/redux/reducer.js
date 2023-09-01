@@ -36,7 +36,7 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, allBreeds: updatedDogs, copyBreeds: updatedDogs };
     case FILTER_BREEDS:
       const { temperament, origin } = action.payload;
-      const filteredBreeds = state.allBreeds.filter(
+      const filteredBreeds = state.copyBreeds.filter(
         (breed) =>
           temperament.every((temp) => breed.temperament?.includes(temp)) &&
           (origin === "all" || breed.origin === origin)
