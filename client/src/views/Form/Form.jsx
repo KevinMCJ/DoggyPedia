@@ -41,7 +41,7 @@ const Form = () => {
   const [userInteraction, setUserInteraction] = useState(false);
 
   const handleChange = (event) => {
-    if(!userInteraction) setUserInteraction(true);
+    if (!userInteraction) setUserInteraction(true);
     const { name, value } = event.target;
     setDataForm({ ...dataForm, [name]: value });
     setErrors(validation({ ...dataForm, [name]: value }));
@@ -50,7 +50,7 @@ const Form = () => {
   const handleSelect = (event) => {
     let { value } = event.target;
 
-    if(!userInteraction) setUserInteraction(true);
+    if (!userInteraction) setUserInteraction(true);
 
     if (
       dataForm.temperament.length < 20 &&
@@ -102,19 +102,21 @@ const Form = () => {
       ...dataForm,
       temperament: filteredTemps,
     });
-    
-    setErrors(validation({
-      ...dataForm,
-      temperament: filteredTemps,
-    }));
+
+    setErrors(
+      validation({
+        ...dataForm,
+        temperament: filteredTemps,
+      })
+    );
   };
 
   // ? Cada vez que cambie el objeto errors, vera si puede activar el botón del formulario.
   useEffect(() => {
-    if(userInteraction){
+    if (userInteraction) {
       setHasErrors(Object.keys(errors).length > 0);
     }
-  }, [errors, userInteraction])
+  }, [errors, userInteraction]);
 
   return (
     <div className={style.container}>
@@ -246,11 +248,15 @@ const Form = () => {
 
           <div className={style.temperamentBox}>
             <select onChange={handleSelect} className={style.select}>
-              {temperaments.map((temp, index) => (
-                <option key={index} value={temp}>
-                  {temp}
-                </option>
-              ))}
+              {temperaments.length ? (
+                temperaments.map((temp, index) => (
+                  <option key={index} value={temp}>
+                    {temp}
+                  </option>
+                ))
+              ) : (
+                <option>No temperaments</option>
+              )}
             </select>
             {dataForm.temperament.length > 0 ? (
               <ul className={style.tempList}>
