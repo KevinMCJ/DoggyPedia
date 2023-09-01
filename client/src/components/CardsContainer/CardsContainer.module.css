@@ -29,6 +29,10 @@
   gap: 1rem;
 }
 
+.loading_dog{
+  max-width: 200px;
+}
+
 /************ RESPONSIVE ************/
 @media screen and (max-width: 1365px) {
   .container {
