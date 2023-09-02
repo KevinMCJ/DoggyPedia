@@ -1,7 +1,13 @@
 <h1 align="center" id="title">DoggyPedia</h1>
 
-<p id="description">Interactive and informative project about dog breeds 🐶.</p>
+<p id="description">Explore an interactive and informative app dedicated to dog breeds 🐶.</p>
 
+<h2>🖼️ Previews</h2>
+<div>
+<img src="./previews/preview0.png" alt="Preview photo" height="50%" style="border-radius: 10px; border: 2px solid #1F140A"/>
+<img src="./previews/preview1.png" alt="Preview photo" height="50%" style="border-radius: 10px; border: 2px solid #1F140A"/>
+<img src="./previews/preview2.png" alt="Preview photo" height="50%" style="border-radius: 10px; border: 2px solid #1F140A"/>
+</div>
   
   
 <h2>🧐 Features</h2>
