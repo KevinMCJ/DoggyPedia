@@ -6,7 +6,7 @@ const Landing = () => {
     <div className={style.Landing}>
       <h1 className={style.title}>DoggyPedia</h1>
       <Link to="/home">
-        <button className={style.button}>Adéntrate en el mundo perruno!</button>
+        <button className={style.button}>Get into the doggy world!</button>
       </Link>
     </div>
   );
